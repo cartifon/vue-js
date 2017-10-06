@@ -12,42 +12,37 @@
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
-                </div>
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width : (myHealth + '%')}"></div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
-                </div>
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width : (monsterHealth + '%')}"></div>
             </div>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-show="gameEnded">
         <div class="small-12 columns">
-            <button id="start-game">START NEW GAME</button>
+            <button id="start-game" @click="startNewGame">START NEW GAME</button>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-show="!gameEnded">
         <div class="small-12 columns">
-            <button id="attack">ATTACK</button>
-            <button id="special-attack">SPECIAL ATTACK</button>
-            <button id="heal">HEAL</button>
-            <button id="give-up">GIVE UP</button>
+            <button id="attack" @click="atack">ATTACK</button>
+            <button id="special-attack" @click="specialAtack">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" @click="giveUp">GIVE UP</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-show="history.length > 0">
         <div class="small-12 columns">
             <ul>
-                <li>
-
-                </li>
+                <li v-for="(value, key, index) in history" :class="{ 'player-turn': value.turn == 'player', 'monster-turn': value.turn == 'monster'}" >{{value.action}} {{value.damage}}</li>
             </ul>
         </div>
     </section>
 </div>
+<script src="app.js"></script>
 </body>
 </html>
